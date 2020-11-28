@@ -91,6 +91,7 @@ def runge_kutta_method(alpha, xPar, delta, toprint=False):
 
 
 def shootingmethod():
+    print('Вариант №', VAR)
     print('Метод стрельб\n')
 
     alpha1, alpha2, alpha, delta, y = 0, 3, 0, [0], 0
