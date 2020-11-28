@@ -64,7 +64,10 @@ def Find_u(f,Arr,N,h):
     return xAnswer
 
 def RS_Clear(N,var,ksi):
-    print("N= " + N)
+    print("Явная схема")
+    print("N= " + str(N))
+    print("Ksi= " +str(ksi))
+    print("Variant= " +str(var))
     A=0
     B=1
     printHead(N)
@@ -72,6 +75,7 @@ def RS_Clear(N,var,ksi):
     tau = h * h / (4 * ksi)
     resList = generateList(N)
     delta=0
+    maxdelta=0
     i=1
     t=0
     while (i * tau<1):
@@ -83,14 +87,19 @@ def RS_Clear(N,var,ksi):
             newStr[j]=resList[j]+tau*ksi*(resList[j+1]-2*resList[j]+resList[j-1])/(h**2)+tau*d2F(tau*(i-1), h*j,ksi,var)
         resList= newStr
         delta=findDelta(newStr,tau*i,h,N,var)
+        if (maxdelta<delta):
+            maxdelta=delta
         printBody(i*tau, delta, newStr, N)
         i+=1
         #ПЕРЕПСИЬСЬАИЬАЬИ
-    FormAnswer(delta)
+    FormAnswer(maxdelta)
 
 
 def RS_NotClear(N,var,ksi):
-    print("N= " +str( N))
+    print("Неявная схема")
+    print("N= " + str(N))
+    print("Ksi= " + str(ksi))
+    print("Variant= " + str(var))
 
     A = 0
     B = 1
