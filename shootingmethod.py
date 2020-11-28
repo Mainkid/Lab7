@@ -3,9 +3,9 @@ from scipy.misc import derivative
 
 VAR = 20
 
-EPS = 1e-4
+EPS = 10e-4
 
-EPS1 = 1e-5
+EPS1 = 10e-5
 
 
 def A(x):
@@ -36,7 +36,6 @@ def F(x):
     return d2Ynp + A(x) * dYnp - B(x) * Ynp(x) + C(x) * math.sin(Ynp(x))
 
 
-#
 def f(x, y, z):
     return -A(x) * z + B(x) * y - C(x) * math.sin(y) + F(x)
 
@@ -56,9 +55,7 @@ def calculate_h(x, y, z, h):
 # метод Рунге-Кутты
 def runge_kutta_method(alpha, xPar, delta, toprint=False):
     x, y, z = 0, 1, alpha  # x=0, y(0)=1, y'(0)=alpha
-    yPrev, zPrev = 0, 0
-
-    delta[0] = 0
+    yPrev = zPrev = delta[0] = 0
 
     if toprint:
         print(f'{"x":9}|\t{"y(x)":9}|\t{"Ypr(x)":9}|\t{"z(x)":9}|\t{"Delta":12}|')
@@ -77,7 +74,7 @@ def runge_kutta_method(alpha, xPar, delta, toprint=False):
 
         Y = Ynp(x)
         error = abs(Y - y)
-        delta[0] = error if error > delta[0] else delta[0]
+        if error > delta[0]: delta[0] = error
 
         if toprint:
             print(f'{x:9.6f}|\t{y:9.6f}|\t{Y:9.6f}|\t{z:9.6f}|\t{error:9e}|')
@@ -95,7 +92,7 @@ def shootingmethod():
     print('Метод стрельб\n')
 
     alpha1, alpha2, alpha, delta, y = 0, 3, 0, [0], 0
-    B, itr = 2, 0
+    B, itr = 2, 0  # y(1) = 2, itr = 0
 
     print(f'{"Itr":9}|\t{"z(0)":9}|\t{"y(1)":9}|\t{"Delta":12}|')
 
